@@ -54,23 +54,21 @@ export default function Post() {
   };
 
   return post ? (
-    <div className="py-8 ">
+    <div className="py-8">
       <Container>
-        <div className="flex mb-6 space-x-6">
+        <div className="flex flex-col md:flex-row mb-6 space-y-6 md:space-y-0 md:space-x-6">
           {/* Image section */}
-          <div className="w-1/4 flex justify-center relative border rounded-xl p-2">
+          <div className="w-full md:w-1/4 flex justify-center relative border rounded-xl p-2 max-w-md mx-auto md:mx-0">
             <img
               src={appwriteService.getFilePreview(post.featuredImage)}
               alt={post.title}
-              className="rounded-xl"
+              className="rounded-xl w-full h-auto object-cover"
             />
 
             {isAuthor && (
-              <div className="absolute right-6 top-6">
+              <div className="absolute right-6 top-6 flex space-x-3">
                 <Link to={`/edit-post/${post.$id}`}>
-                  <Button bgColor="bg-green-500" className="mr-3">
-                    Edit
-                  </Button>
+                  <Button bgColor="bg-green-500">Edit</Button>
                 </Link>
                 <button
                   type="button"
@@ -87,11 +85,11 @@ export default function Post() {
           <div className="flex-1">
             <h1 className="text-2xl font-bold mb-4">{post.title}</h1>
             <div className="browser-css">{parse(post.content)}</div>
-            <div>
+            <div className="mt-4">
               <button
                 type="button"
                 onClick={likePost}
-                className="p-2 flex items-center justify-center gap-2 bg-white rounded"
+                className="p-2 flex items-center justify-center gap-2"
               >
                 <FaHeart
                   className={hasLiked ? "text-red-500" : "text-white"}
