@@ -13,7 +13,7 @@ function MyPost() {
       }
     });
   }, []);
-console.log(posts)
+
   return (
     <div className="w-full py-8">
       <Container>

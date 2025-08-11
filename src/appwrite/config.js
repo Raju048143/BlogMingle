@@ -44,11 +44,12 @@ export class Service {
   }
 
   async getPost(slug) {
-    return await this.databases.getDocument(
+    const post = await this.databases.getDocument(
       conf.appwriteDatabaseId,
       conf.appwriteCollectionId,
       slug
     );
+    return post
   }
 
   async getPosts(queries = [Query.equal("status", "active")]) {
@@ -94,6 +95,39 @@ export class Service {
       queries
     );
   }
+
+async toggleLikePost(postId) {
+  const user = await authService.getCurrentUser();
+  if (!user) throw new Error("User must be logged in to like/unlike");
+
+    const post = await this.databases.getDocument(
+    conf.appwriteDatabaseId,
+    conf.appwriteCollectionId,
+    postId
+  );
+
+  const likes = post.likes || [];
+
+  const userIndex = likes.indexOf(user.$id);
+
+  let updatedLikes;
+
+  if (userIndex === -1) {
+    updatedLikes = [...likes, user.$id];
+  } else {
+    updatedLikes = likes.filter(id => id !== user.$id);
+  }
+
+  await this.databases.updateDocument(
+    conf.appwriteDatabaseId,
+    conf.appwriteCollectionId,
+    postId,
+    { likes: updatedLikes }
+  );
+
+  return updatedLikes;
+}
+
 }
 
 const service = new Service();
