@@ -56,9 +56,10 @@ function Home() {
           </div>
         </Container>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <Container>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-6 px-2 sm:px-0">
           {visiblePosts.map((post) => (
-            <div key={post.$id} className="min-h-[350px]">
+            <div key={post.$id} className="">
               <PostCard post={post} />
             </div>
           ))}
@@ -74,6 +75,7 @@ function Home() {
             </div>
           )}
         </div>
+        </Container>
       )}
     </div>
   );
