@@ -141,6 +141,6 @@ export default function PostForm({ post }) {
     />
   </div>
 </form>
-/</div>
+</div>
   );
 }
